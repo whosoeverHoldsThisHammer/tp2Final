@@ -1,0 +1,61 @@
+FUNCIONALIDADES:
+
+DESARROLLADOR: 
+-ABM
+-Lista de tickets libres (para seleccionar uno)
+-Lista de tickets asignados
+
+MANAGER:
+-Crea proyectos
+-Asigna desarrolladores a equipo
+-Asigna proyecto a equipo
+-ABM tickets
+
+EQUIPO:
+-Listar miembros
+
+Proyecto:
+-Lista de tickets
+-Equipo asignado al proyecto
+
+TICKET:
+
+
+ATRIBUTOOOOOOOOSSSSSSSS
+Desarrollador:
+-id
+-nombre
+-equipo
+-tickets (lista)
+-proyecto
+
+
+Manager:
+-id
+-nombre
+-proyectos(lista)
+
+Proyecto:
+-id
+-nombre
+-equipo
+-tickets (lista)
+-progreso
+-completado (bool)
+-manager
+
+Equipo:
+-id
+-nombre
+-desarrolladores (lista)
+-proyecto
+
+Ticket:
+-id
+-nombre
+-descripcion
+-completado (bool)
+-dificultad (del 1 al 10)
+-prioridad (del 1 al 10)
+-proyecto
+-desarrollador
