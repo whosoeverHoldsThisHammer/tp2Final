@@ -1,11 +1,12 @@
 FUNCIONALIDADES:
 
-DESARROLLADOR: 
--ABM
+DESARROLLADOR:
 -Lista de tickets libres (para seleccionar uno)
 -Lista de tickets asignados
 
 MANAGER:
+-ABM de desarrolladores
+-Listar proyctos asignados (rol con autenticacion)
 -Crea proyectos
 -Asigna desarrolladores a equipo
 -Asigna proyecto a equipo
@@ -20,7 +21,6 @@ Proyecto:
 
 TICKET:
 
-
 ATRIBUTOOOOOOOOSSSSSSSS
 Desarrollador:
 -id
@@ -28,7 +28,6 @@ Desarrollador:
 -equipo
 -tickets (lista)
 -proyecto
-
 
 Manager:
 -id
