@@ -28,15 +28,15 @@ db.desarrolladores.insertMany([
 db.proyectos.drop();
 
 db.proyectos.insertMany([
-  { '_id': 1, 'nombre': 'ONG', 'equipo': 1, 'tickets': [], 'progreso': 0.0, 'completado': false, 'manager': 1  },
-  { '_id': 2, 'nombre': 'Empresa Contable', 'equipo': 2, 'tickets': [], 'progreso': 0.0, 'completado': false, 'manager': 1  },
+  { 'nombre': 'ONG', 'equipo': 1, 'tickets': [], 'progreso': 0.0, 'completado': false, 'manager': 1  },
+  { 'nombre': 'Empresa Contable', 'equipo': 2, 'tickets': [], 'progreso': 0.0, 'completado': false, 'manager': 1  },
 ]);
 
 db.equipos.drop();
 
 db.equipos.insertMany([
   { '_id': 1, 'nombre': 'Equipo Alfa', 'desarrolladores': [], 'proyecto': 1 },
-   { '_id': 2, 'nombre': 'Equipo Beta', 'desarrolladores': [], 'proyecto': 2 },
+  { '_id': 2, 'nombre': 'Equipo Beta', 'desarrolladores': [], 'proyecto': 2 },
 ]);
 
 db.tickets.drop();
@@ -48,9 +48,3 @@ db.tickets.insertMany([
   { '_id': 4, 'nombre': 'Dejar mensajes de error ', 'descripcion': "Establecer errores base", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'proyecto': 1, 'desarrollador': 1 },
 ]);
 
-// Run a find command to view items sold on April 4th, 2014.
-
-
-// Run the aggregation and open a cursor to the results.
-// Use toArray() to exhaust the cursor to return the whole result set.
-// You can use hasNext()/next() to iterate through the cursor page by page.
