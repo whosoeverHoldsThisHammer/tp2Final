@@ -58,3 +58,17 @@ Ticket:
 -prioridad (del 1 al 10)
 -proyecto
 -desarrollador
+
+
+Endpoints:
+
+- GET /api/devs?equipo_id=[equipo_id]
+- GET /api/devs/:id
+- POST /api/devs/
+- PUT /api/devs/
+
+- GET /api/projects
+- POST /api/projects/
+
+- GET /api/tickets?desarrollador_id=[desarrollador_id]&proyecto_id=[proyecto_id]
+- POST /api/ticket/:id

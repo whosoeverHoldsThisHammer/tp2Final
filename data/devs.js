@@ -1,15 +1,28 @@
 const connection = require('./conn')
 const objectId = require('mongodb').ObjectId;
 
-async function getDevs(){
+async function getDevs(equipo_id){
+    const query = {};
+    (equipo_id) ? (query.equipo_id = equipo_id) : "";
+
     const clientMongo = await connection.getConnection();
     const devs = await clientMongo
         .db('tp2_final')
         .collection('desarrolladores')
-        .find()
+        .find(query)
         .toArray()
     
     return devs;
+}
+
+async function getDev(id){
+    const clientMongo = await connection.getConnection();
+    const dev = await clientMongo
+        .db('tp2_final')
+        .collection('desarrolladores')
+        .findOne({_id: new objectId(id)})
+
+    return dev;
 }
 
 async function newDev(dev){
@@ -41,4 +54,4 @@ async function updateDev(dev){
     return result;
 }
 
-module.exports = { getDevs, newDev, updateDev }
+module.exports = { getDevs, getDev, newDev, updateDev }
