@@ -70,5 +70,7 @@ Endpoints:
 - GET /api/projects
 - POST /api/projects/
 
-- GET /api/tickets?desarrollador_id=[desarrollador_id]&proyecto_id=[proyecto_id]
+- GET /api/tickets?criterio=[dificultad||prioridad]&orden=[ASC||DES]
+- GET /api/tickets?completado=[true||false]
+- GET /api/tickets/desarrollador/:id
 - POST /api/ticket/:id
