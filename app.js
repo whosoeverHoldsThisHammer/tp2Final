@@ -9,6 +9,8 @@ var devsRouter = require('./routes/devs');
 var projectsRouter = require('./routes/projects');
 var teamsRouter = require('./routes/teams');
 var managersRouter = require('./routes/managers');
+var ticketsRouter = require('./routes/tickets');
+
 
 var app = express();
 
@@ -27,6 +29,7 @@ app.use('/api/devs', devsRouter);
 app.use('/api/projects', projectsRouter);
 app.use('/api/teams', teamsRouter);
 app.use('/api/managers', managersRouter);
+app.use('/api/tickets', ticketsRout);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
