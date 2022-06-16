@@ -74,3 +74,27 @@ Endpoints:
 - GET /api/tickets?completado=[true||false]
 - GET /api/tickets/desarrollador/:id
 - GET /api/ticket/:id
+
+
+QUE ESTA HECHO!!
+DESARROLLADOR:
+GetAll()
+GetOnly()
+Post()
+Update()
+
+MANAGER:
+GetAll()
+
+PROYECTO:
+GetAll()
+Post()
+Update()
+
+EQUIPO:
+GetAll()
+
+TICKET:
+GetAll()
+GetOnly()
+GetDesarrolladorXTicket()
