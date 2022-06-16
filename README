@@ -73,4 +73,4 @@ Endpoints:
 - GET /api/tickets?criterio=[dificultad||prioridad]&orden=[ASC||DES]
 - GET /api/tickets?completado=[true||false]
 - GET /api/tickets/desarrollador/:id
-- POST /api/ticket/:id
+- GET /api/ticket/:id
