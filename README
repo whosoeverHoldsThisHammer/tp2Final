@@ -98,3 +98,29 @@ TICKET:
 GetAll()
 GetOnly()
 GetDesarrolladorXTicket()
+
+
+IMPORTANTE LO QUE FALTA:
+LOGIN!!!! AUTENTICACION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+DESARROLLADOR:
+-borrar
+
+-listar todos los tickets
+-listar SUS tickets
+-asignarse un ticket (QUIEN es el disparador¿?¿?¿?¿?)
+
+MANAGER:
+-CREATE
+-UPDATE
+-DELETE
+-GETONLY
+
+PROYECTO:
+-Pasar GetAll() equipos, dentro de proyecto
+-Pasar los endpoints de tickets dentro de proyecto
+-GetOnly()
+-Asignar desarrolladores a equipo
+-UPDATE() por equipo
+-UPDATE() por tickets
+-Update
+-Delete
