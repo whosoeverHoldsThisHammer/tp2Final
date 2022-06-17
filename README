@@ -101,26 +101,21 @@ GetDesarrolladorXTicket()
 
 
 IMPORTANTE LO QUE FALTA:
-LOGIN!!!! AUTENTICACION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+LOGIN!!!! AUTENTICACION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! //CATA
 DESARROLLADOR:
--borrar
+-Delete() //ANDRES
 
--listar todos los tickets
--listar SUS tickets
--asignarse un ticket (QUIEN es el disparador¿?¿?¿?¿?)
-
-MANAGER:
--CREATE
+MANAGER: //FEDE
+-CREATE 
 -UPDATE
 -DELETE
 -GETONLY
 
 PROYECTO:
--Pasar GetAll() equipos, dentro de proyecto
--Pasar los endpoints de tickets dentro de proyecto
--GetOnly()
--Asignar desarrolladores a equipo
--UPDATE() por equipo
--UPDATE() por tickets
+-Pasar GetAll() equipos, dentro de proyecto //AGUS
+-Pasar los endpoints de tickets dentro de proyecto //ANDRES
+-GetOnly() //AGUS
+-UPDATE() por equipo //AGUS
+-UPDATE() por tickets //AGUS
 -Update
 -Delete
