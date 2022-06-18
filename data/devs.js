@@ -1,15 +1,12 @@
 const connection = require('./conn')
 const objectId = require('mongodb').ObjectId;
 
-async function getDevs(equipo_id){
-    const query = {};
-    (equipo_id) ? (query.equipo_id = equipo_id) : "";
-
+async function getDevs(){
     const clientMongo = await connection.getConnection();
     const devs = await clientMongo
         .db('tp2_final')
         .collection('desarrolladores')
-        .find(query)
+        .find()
         .toArray()
     
     return devs;
@@ -45,7 +42,6 @@ async function updateDev(dev){
             {_id: new objectId(dev._id)},
             { $set: {
                 nombre: dev.nombre,
-                equipo_id: dev.equipo_id,
                 proyecto_id: dev.proyecto_id
                 }
             }

@@ -12,40 +12,53 @@ db.managers.drop();
 
 // Insert a few documents into the sales collection.
 db.managers.insertOne([
-  { '_id': 1, 'nombre': 'Pablo Martinez', 'proyectos': [] },
+  { '_id': 1, 'nombre': 'Pablo Martinez' },
 ]);
 
 db.desarrolladores.drop();
 
 db.desarrolladores.insertMany([
-  { 'nombre': 'Juan Perez', 'equipo_id': 0, 'tickets': [], 'proyecto_id': 0  },
-  { 'nombre': 'Catalina Buljevich', 'equipo_id': 1, 'tickets': [], 'proyecto_id': 1  },
-  { 'nombre': 'Agustina Lois', 'equipo_id': 1, 'tickets': [], 'proyecto_id': 1  },
-  { 'nombre': 'Andres Fiorito', 'equipo_id': 1, 'tickets': [], 'proyecto_id': 1  },
-  { 'nombre': 'Federico Sassy', 'equipo_id': 1, 'tickets': [], 'proyecto_id': 1  },
+  { '_id': 1, 'nombre': 'Juan Perez', 'proyecto_id': 0  },
+  { '_id': 2,'nombre': 'Catalina Buljevich', 'proyecto_id': 1  },
+  { '_id': 3,'nombre': 'Agustina Lois', 'proyecto_id': 1  },
+  { '_id': 4,'nombre': 'Andres Fiorito', 'proyecto_id': 1  },
+  { '_id': 5,'nombre': 'Federico Sassy', 'proyecto_id': 1  },
 ]);
 
 db.proyectos.drop();
 
 db.proyectos.insertMany([
-  { 'nombre': 'ONG', 'equipo_id': 1, 'tickets': [], 'progreso': 0.0, 'completado': false, 'manager_id': 1  },
-  { 'nombre': 'Empresa Contable', 'equipo_id': 2, 'tickets': [], 'progreso': 0.0, 'completado': false, 'manager_id': 1  },
+  { 
+  'nombre': 'ONG',
+  'equipo': {'nombre': 'Equipo Alfa', 'desarrolladores': [
+    { '_id': 1, 'nombre': 'Juan Perez', 'proyecto_id': 0  },
+    { '_id': 2,'nombre': 'Catalina Buljevich', 'proyecto_id': 1  },
+  ]},
+  'tickets': [
+    { 'nombre': 'Crear Barra de Navegacion', 'descripcion': "Crear una barra de navegacion desplegable", 'completado': false, 'dificultad': 5, 'prioridad': 1, 'desarrollador_id': 1 },
+    { 'nombre': 'Crear Conexion con BD', 'descripcion': "Asociar a Mondo DB", 'completado': false, 'dificultad': 7, 'prioridad': 2, 'desarrollador_id': 1 },
+    { 'nombre': 'Crear Endpoint Manager', 'descripcion': "Crear un Endpoint para ver lista de desarrolladores ", 'completado': false, 'dificultad': 9, 'prioridad': 4, 'desarrollador_id': 1 },
+    { 'nombre': 'Dejar mensajes de error ', 'descripcion': "Establecer errores base", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'desarrollador_id': 5 },
+    { 'nombre': 'Enviar notificaciones a usuarios', 'descripcion': "Enviar mensajes con novedades a los usuarios", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'desarrollador_id': 5 },],
+  'progreso': 0.0,
+  'completado': false,
+  'manager': { '_id': 1, 'nombre': 'Pablo Martinez' },
+  },
+  {
+  'nombre': 'Empresa Contable',
+  'equipo': {'nombre': 'Equipo Beta', 'desarrolladores': [
+    { '_id': 3,'nombre': 'Agustina Lois', 'proyecto_id': 1  },
+    { '_id': 4,'nombre': 'Andres Fiorito', 'proyecto_id': 1  },
+    { '_id': 5,'nombre': 'Federico Sassy', 'proyecto_id': 1  },
+  ]},
+  'tickets': [
+    { 'nombre': 'Crear Barra de Navegacion', 'descripcion': "Crear una barra de navegacion desplegable", 'completado': false, 'dificultad': 5, 'prioridad': 1, 'desarrollador_id': 1 },
+    { 'nombre': 'Crear Conexion con BD', 'descripcion': "Asociar a Mondo DB", 'completado': false, 'dificultad': 7, 'prioridad': 2, 'desarrollador_id': 1 },
+    { 'nombre': 'Crear Endpoint Manager', 'descripcion': "Crear un Endpoint para ver lista de desarrolladores ", 'completado': false, 'dificultad': 9, 'prioridad': 4, 'desarrollador_id': 1 },
+    { 'nombre': 'Dejar mensajes de error ', 'descripcion': "Establecer errores base", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'desarrollador_id': 5 },
+    { 'nombre': 'Enviar notificaciones a usuarios', 'descripcion': "Enviar mensajes con novedades a los usuarios", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'desarrollador_id': 5 },],
+  'progreso': 0.0,
+  'completado': false,
+  'manager': { '_id': 1, 'nombre': 'Pablo Martinez' },
+  },
 ]);
-
-db.equipos.drop();
-
-db.equipos.insertMany([
-  { '_id': 1, 'nombre': 'Equipo Alfa', 'desarrolladores': [], 'proyecto': 1 },
-  { '_id': 2, 'nombre': 'Equipo Beta', 'desarrolladores': [], 'proyecto': 2 },
-]);
-
-db.tickets.drop();
-
-db.tickets.insertMany([
-  { 'nombre': 'Crear Barra de Navegacion', 'descripcion': "Crear una barra de navegacion desplegable", 'completado': false, 'dificultad': 5, 'prioridad': 1, 'proyecto_id': 1, 'desarrollador_id': 1 },
-  { 'nombre': 'Crear Conexion con BD', 'descripcion': "Asociar a Mondo DB", 'completado': false, 'dificultad': 7, 'prioridad': 2, 'proyecto_id': 1, 'desarrollador_id': 1 },
-  { 'nombre': 'Crear Endpoint Manager', 'descripcion': "Crear un Endpoint para ver lista de desarrolladores ", 'completado': false, 'dificultad': 9, 'prioridad': 4, 'proyecto_id': 1, 'desarrollador_id': 1 },
-  { 'nombre': 'Dejar mensajes de error ', 'descripcion': "Establecer errores base", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'proyecto_id': 1, 'desarrollador_id': 5 },
-  { 'nombre': 'Enviar notificaciones a usuarios', 'descripcion': "Enviar mensajes con novedades a los usuarios", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'proyecto_id': 2, 'desarrollador_id': 5 },
-]);
-

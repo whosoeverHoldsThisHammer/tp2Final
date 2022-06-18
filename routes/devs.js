@@ -3,8 +3,7 @@ const router = express.Router();
 const data = require('./../data/devs');
 
 router.get('/', async(req, res, next) => {
-  const equipo_id = req.query.equipo_id ? parseInt(req.query.equipo_id) : ""
-  const devs = await data.getDevs(equipo_id)
+  const devs = await data.getDevs()
   res.json(devs);
 })
 

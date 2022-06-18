@@ -22,24 +22,47 @@ async function newProject(project){
     return result;
 }
 
-async function updateProject(project){
+async function updateProjectData(project){
     const clientMongo = await connection.getConnection();
     const result = await clientMongo
         .db('tp2_final')
         .collection('proyectos')
-        .replaceOne(
+        .updateOne(
             {_id: new objectId(project._id)},
-            {
+            { $set: {
                 nombre: project.nombre,
-                equipo_id: project.equipo,
-                tickets: project.tickets,
-                progreso: project.tickets,
-                completado: project.completado,
-                manager_id: project.manager_id
-                
-            })
+                progreso: project.progreso,
+                completado: project.completado
+                }
+            }
+        )
 
     return result;
 }
 
-module.exports = { getProjects, newProject, updateProject }
+
+async function getTickets(){
+    const clientMongo = await connection.getConnection();
+    const tickets = await clientMongo
+        .db('tp2_final')
+        .collection('proyectos')
+        .find().project({ tickets: 1 })
+        .toArray()
+    
+    return tickets;
+}
+
+
+async function getTeam(name){
+    const clientMongo = await connection.getConnection();
+    const team = await clientMongo
+        .db('tp2_final')
+        .collection('proyectos')
+        .find( { 'equipo.nombre' : name})
+        .toArray()
+    
+    return team;
+}
+
+
+module.exports = { getProjects, newProject, updateProjectData, getTickets, getTeam }
