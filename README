@@ -60,7 +60,8 @@ Ticket:
 -desarrollador
 
 
-Endpoints:
+
+QUE ESTA HECHO!!
 
 # DEVS #
 - GET api/devs
@@ -75,7 +76,6 @@ Endpoints:
 - PUT api/projects/update
 
 
-QUE ESTA HECHO!!
 DESARROLLADOR:
 GetAll()
 GetOnly()
