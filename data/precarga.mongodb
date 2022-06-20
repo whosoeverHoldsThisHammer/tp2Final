@@ -62,3 +62,11 @@ db.proyectos.insertMany([
   'manager': { '_id': 1, 'nombre': 'Pablo Martinez' },
   },
 ]);
+
+db.users.drop();
+
+db.users.insertMany([
+  {'email': 'usuario3@hotmail.com', 'password': '$2b$08$OCYgNNfQpFpDwmPlstva6eP7c2Ql2A8o5HcTgBuuI67JN4ETTWo5K' },
+  {'email': 'usuario4@hotmail.com', 'password': '$2b$08$eSlTd7gIjJDyM32UfhKSguROeXIfCBffe6pfXDMdRvx.BFUPPh9n.' },
+
+]);

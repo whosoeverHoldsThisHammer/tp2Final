@@ -1,35 +1,35 @@
-const connection = require('./conn')
-const objectId = require('mongodb').ObjectId;
+const connection = require("./conn");
+const objectId = require("mongodb").ObjectId;
 
-async function getDevs(){
-    const clientMongo = await connection.getConnection();
-    const devs = await clientMongo
-        .db('tp2_final')
-        .collection('desarrolladores')
-        .find()
-        .toArray()
-    
-    return devs;
+async function getDevs() {
+  const clientMongo = await connection.getConnection();
+  const devs = await clientMongo
+    .db("tp2_final")
+    .collection("desarrolladores")
+    .find()
+    .toArray();
+
+  return devs;
 }
 
-async function getDev(id){
-    const clientMongo = await connection.getConnection();
-    const dev = await clientMongo
-        .db('tp2_final')
-        .collection('desarrolladores')
-        .findOne({_id: new objectId(id)})
+async function getDev(id) {
+  const clientMongo = await connection.getConnection();
+  const dev = await clientMongo
+    .db("tp2_final")
+    .collection("desarrolladores")
+    .findOne({ _id: new objectId(id) });
 
-    return dev;
+  return dev;
 }
 
-async function newDev(dev){
-    const clientMongo = await connection.getConnection();
-    const result = await clientMongo
-        .db('tp2_final')
-        .collection('desarrolladores')
-        .insertOne(dev);
+async function newDev(dev) {
+  const clientMongo = await connection.getConnection();
+  const result = await clientMongo
+    .db("tp2_final")
+    .collection("desarrolladores")
+    .insertOne(dev);
 
-    return result;
+  return result;
 }
 
 async function updateDev(dev){
@@ -60,3 +60,4 @@ async function deleteDev(id){
 }
 
 module.exports = { getDevs, getDev, newDev, updateDev, deleteDev }
+
