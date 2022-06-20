@@ -41,7 +41,7 @@ router.put('/team/remove/:team_id/:user_id', async(req, res) => {
 });
 
 
-router.put('/team/removeFromAllTeams/:id', async(req, res) => {
+router.put('/removeFromAllTeams/:id', async(req, res) => {
   const id = req.params.id;
   const result = await data.removeFromAllTeams(id);
   res.json(result);
