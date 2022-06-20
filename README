@@ -59,22 +59,27 @@ Ticket:
 -proyecto
 -desarrollador
 
-
-
 QUE ESTA HECHO!!
 
-# DEVS #
+# DEVS
+
 - GET api/devs
 - GET api/devs/:{id}
 - POST api/devs
 - PUT api/devs
 
-# PROJECTS #
+# PROJECTS
+
 - GET api/projects/tickets
 - GET api/projects/team/:{nombre}
 - POST api/projects
 - PUT api/projects/update
 
+# USERS
+
+- GET api/users
+- POST api/users
+- POST api/users/login
 
 DESARROLLADOR:
 GetAll()
@@ -98,14 +103,13 @@ GetAll()
 GetOnly()
 GetDesarrolladorXTicket()
 
-
 IMPORTANTE LO QUE FALTA:
 LOGIN!!!! AUTENTICACION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! //CATA
 DESARROLLADOR:
 -Delete() //ANDRES
 
 MANAGER: //FEDE
--CREATE 
+-CREATE
 -UPDATE
 -DELETE
 -GETONLY
