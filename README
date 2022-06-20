@@ -76,7 +76,7 @@ QUE ESTA HECHO!!
 - POST api/projects
 - PUT api/projects/update
 - PUT api/projects/team/remove/:team_id/:user_id
-- PUT api/projects/team/removeFromAllTeams/:id
+- PUT api/projects/removeFromAllTeams/:id
 - PUT api/projects/unassignFromAllTickets/:id
 
 
