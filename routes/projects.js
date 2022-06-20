@@ -32,4 +32,27 @@ router.get('/team/:name', async(req, res, next) => {
   res.json(team);
 });
 
+
+router.put('/team/remove/:team_id/:user_id', async(req, res) => {
+  const team_id = req.params.team_id;
+  const user_id = req.params.user_id;
+  const result = await data.removeTeamMemeber(team_id, user_id);
+  res.json(result);
+});
+
+
+router.put('/team/removeFromAllTeams/:id', async(req, res) => {
+  const id = req.params.id;
+  const result = await data.removeFromAllTeams(id);
+  res.json(result);
+});
+
+
+router.put('/unassignFromAllTickets/:id', async(req, res) => {
+  const id = req.params.id;
+  const result = await data.unassignFromAllTickets(id);
+  res.json(result);
+});
+
+
 module.exports = router;

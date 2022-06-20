@@ -33,7 +33,6 @@ async function newDev(dev){
 }
 
 async function updateDev(dev){
-    console.log(dev)
     const clientMongo = await connection.getConnection();
     const result = await clientMongo
         .db('tp2_final')
@@ -50,4 +49,14 @@ async function updateDev(dev){
     return result;
 }
 
-module.exports = { getDevs, getDev, newDev, updateDev }
+async function deleteDev(id){
+    const clientMongo = await connection.getConnection();
+    const result = await clientMongo
+        .db('tp2_final')
+        .collection('desarrolladores')
+        .deleteOne({_id: new objectId(id)})
+
+    return result
+}
+
+module.exports = { getDevs, getDev, newDev, updateDev, deleteDev }
