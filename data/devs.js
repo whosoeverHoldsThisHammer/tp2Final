@@ -32,23 +32,32 @@ async function newDev(dev) {
   return result;
 }
 
-async function updateDev(dev) {
-  console.log(dev);
-  const clientMongo = await connection.getConnection();
-  const result = await clientMongo
-    .db("tp2_final")
-    .collection("desarrolladores")
-    .updateOne(
-      { _id: new objectId(dev._id) },
-      {
-        $set: {
-          nombre: dev.nombre,
-          proyecto_id: dev.proyecto_id,
-        },
-      }
-    );
+async function updateDev(dev){
+    const clientMongo = await connection.getConnection();
+    const result = await clientMongo
+        .db('tp2_final')
+        .collection('desarrolladores')
+        .updateOne(
+            {_id: new objectId(dev._id)},
+            { $set: {
+                nombre: dev.nombre,
+                proyecto_id: dev.proyecto_id
+                }
+            }
+        )
 
-  return result;
+    return result;
 }
 
-module.exports = { getDevs, getDev, newDev, updateDev };
+async function deleteDev(id){
+    const clientMongo = await connection.getConnection();
+    const result = await clientMongo
+        .db('tp2_final')
+        .collection('desarrolladores')
+        .deleteOne({_id: new objectId(id)})
+
+    return result
+}
+
+module.exports = { getDevs, getDev, newDev, updateDev, deleteDev }
+

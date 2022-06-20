@@ -25,4 +25,10 @@ router.put("/", async (req, res) => {
   res.json(result);
 });
 
+router.delete('/:id', async(req, res) => {
+  const result = await data.deleteDev(req.params.id)
+  res.json(result)
+
+})
+
 module.exports = router;

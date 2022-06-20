@@ -64,16 +64,20 @@ QUE ESTA HECHO!!
 # DEVS
 
 - GET api/devs
-- GET api/devs/:{id}
+- GET api/devs/:id
 - POST api/devs
 - PUT api/devs
+- DELETE api/devs/:id
 
 # PROJECTS
 
 - GET api/projects/tickets
-- GET api/projects/team/:{nombre}
+- GET api/projects/team/:nombre
 - POST api/projects
 - PUT api/projects/update
+- PUT api/projects/team/remove/:team_id/:user_id
+- PUT api/projects/removeFromAllTeams/:id
+- PUT api/projects/unassignFromAllTickets/:id
 
 # USERS
 
@@ -105,8 +109,6 @@ GetDesarrolladorXTicket()
 
 IMPORTANTE LO QUE FALTA:
 LOGIN!!!! AUTENTICACION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! //CATA
-DESARROLLADOR:
--Delete() //ANDRES
 
 MANAGER: //FEDE
 -CREATE
@@ -116,7 +118,6 @@ MANAGER: //FEDE
 
 PROYECTO:
 -Pasar GetAll() equipos, dentro de proyecto //AGUS
--Pasar los endpoints de tickets dentro de proyecto //ANDRES
 -GetOnly() //AGUS
 -UPDATE() por equipo //AGUS
 -UPDATE() por tickets //AGUS

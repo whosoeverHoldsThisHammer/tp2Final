@@ -65,4 +65,57 @@ async function getTeam(name){
 }
 
 
-module.exports = { getProjects, newProject, updateProjectData, getTickets, getTeam }
+async function removeTeamMemeber(team_id, user_id){
+    const clientMongo = await connection.getConnection();
+    const result = await clientMongo
+        .db('tp2_final')
+        .collection('proyectos')
+        .updateMany(
+            {_id: new objectId(team_id)},
+            { $pull:
+                {
+                    'equipo.desarrolladores': { _id: new objectId(user_id) }
+                }
+            }
+        )
+
+    return result;
+}
+
+
+async function removeFromAllTeams(id){
+    const clientMongo = await connection.getConnection();
+    const result = await clientMongo
+        .db('tp2_final')
+        .collection('proyectos')
+        .updateMany(
+            {},
+            { $pull:
+                {
+                    'equipo.desarrolladores': { _id: new objectId(id) }
+                }
+            }
+        )
+
+    return result;
+}
+
+async function unassignFromAllTickets(id){
+    const clientMongo = await connection.getConnection();
+    const result = await clientMongo
+        .db('tp2_final')
+        .collection('proyectos')
+        .updateMany(
+            {'tickets.desarrollador_id': { _id: new objectId(id) } },
+            { $set:
+                {
+                    'tickets.$.desarrollador_id' : ""
+                }
+            }
+        )
+
+    return result;
+}
+
+
+module.exports = { getProjects, newProject, updateProjectData, getTickets, getTeam, removeTeamMemeber, removeFromAllTeams, unassignFromAllTickets }
