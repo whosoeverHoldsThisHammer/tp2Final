@@ -59,24 +59,32 @@ Ticket:
 -proyecto
 -desarrollador
 
-
-Endpoints:
-
-- GET /api/devs?equipo_id=[equipo_id]
-- GET /api/devs/:id
-- POST /api/devs/
-- PUT /api/devs/
-
-- GET /api/projects
-- POST /api/projects/
-
-- GET /api/tickets?criterio=[dificultad||prioridad]&orden=[ASC||DES]
-- GET /api/tickets?completado=[true||false]
-- GET /api/tickets/desarrollador/:id
-- GET /api/ticket/:id
-
-
 QUE ESTA HECHO!!
+
+# DEVS
+
+- GET api/devs
+- GET api/devs/:id
+- POST api/devs
+- PUT api/devs
+- DELETE api/devs/:id
+
+# PROJECTS
+
+- GET api/projects/tickets
+- GET api/projects/team/:nombre
+- POST api/projects
+- PUT api/projects/update
+- PUT api/projects/team/remove/:team_id/:user_id
+- PUT api/projects/removeFromAllTeams/:id
+- PUT api/projects/unassignFromAllTickets/:id
+
+# USERS
+
+- GET api/users
+- POST api/users
+- POST api/users/login
+
 DESARROLLADOR:
 GetAll()
 GetOnly()
@@ -98,3 +106,20 @@ TICKET:
 GetAll()
 GetOnly()
 GetDesarrolladorXTicket()
+
+IMPORTANTE LO QUE FALTA:
+LOGIN!!!! AUTENTICACION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! //CATA
+
+MANAGER: //FEDE
+-CREATE
+-UPDATE
+-DELETE
+-GETONLY
+
+PROYECTO:
+-Pasar GetAll() equipos, dentro de proyecto //AGUS
+-GetOnly() //AGUS
+-UPDATE() por equipo //AGUS
+-UPDATE() por tickets //AGUS
+-Update
+-Delete
