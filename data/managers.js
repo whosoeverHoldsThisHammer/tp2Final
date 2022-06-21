@@ -1,7 +1,7 @@
 const connection = require("./conn");
 const objectId = require("mongodb").ObjectId;
 
-async function getManagers() {
+async function getAllManagers() {
     const clientMongo = await connection.getConnection();
     const managers = await clientMongo
       .db("tp2_final")
@@ -54,4 +54,4 @@ async function deleteManager(id){
     return result;
 }
 
-module.exports = {getManagers, getManager, newManager, updateManager, deleteManager};
+module.exports = {getAllManagers, getManager, newManager, updateManager, deleteManager};
