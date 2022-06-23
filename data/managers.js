@@ -32,13 +32,13 @@ async function newManager(manager) {
     return result;
 }
 
-async function updateManager(manager){
+async function updateManager(manager, id){
     const clientMongo = await connection.getConnection();
     const result = await clientMongo
         .db('tp2_final')
         .collection('managers')
         .updateOne(
-            {_id: new objectId(manager._id)},
+            {_id: new objectId(id)},
             { $set: { nombre: manager.nombre } }
         )
     return result;

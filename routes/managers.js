@@ -19,9 +19,10 @@ router.post("/", async (req, res) => {
   res.json(result);
 });
 
-router.put("/", async (req, res) => {
+router.put("/:id", async (req, res) => {
+  const id = req.params.id;
   const manager = req.body;
-  const result = await manager.updateManager(manager);
+  const result = await controller.updateManager(manager, id);
   res.json(result);
 });
 

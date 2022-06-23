@@ -12,8 +12,8 @@ async function newManager(manager) {
     return managers.newManager(manager);
 }
 
-async function updateManager(manager) {
-    return managers.updateManager(manager);
+async function updateManager(manager, id) {
+    return managers.updateManager(manager, id);
 }
 
 async function deleteManager(id) {
