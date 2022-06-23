@@ -117,5 +117,69 @@ async function unassignFromAllTickets(id){
     return result;
 }
 
+async function getProject(id){
+    const clientMongo = await connection.getConnection();
+    const project = await clientMongo
+        .db('tp2_final')
+        .collection('proyectos')
+        .findOne({_id: new objectId(id)})
 
-module.exports = { getProjects, newProject, updateProjectData, getTickets, getTeam, removeTeamMemeber, removeFromAllTeams, unassignFromAllTickets }
+    return project;
+}
+
+async function getAllTeams(){
+    const clientMongo = await connection.getConnection();
+    const teams = await clientMongo
+        .db('tp2_final')
+        .collection('proyectos')
+        .find({})
+        .map((proyecto)=>({
+            nombre: proyecto.equipo.nombre,
+            desarrolladores: proyecto.equipo.desarrolladores,         
+        }))
+        .toArray()
+
+        return teams;
+}
+
+async function updateTeam(team, id){
+    const clientMongo = await connection.getConnection();
+    const result = await clientMongo
+        .db('tp2_final')
+        .collection('proyectos')       
+        .updateOne(
+            {_id: new objectId(id)},
+            { $set: {
+                "equipo.nombre" : team.nombre,
+                "equipo.desarrolladores" : team.desarrolladores
+                }
+            }
+        )
+    return result;
+}
+
+async function updateTicket(ticket, id){
+    console.log(ticket)
+    const clientMongo = await connection.getConnection();
+    const result = await clientMongo
+        .db('tp2_final')
+        .collection('proyectos')
+        .updateOne(
+            {_id: new objectId(id)},
+            { $set: {
+                "ticket.nombre": ticket.nombre,
+                "ticket.descripcion": ticket.descripcion,
+                "ticket.completado": ticket.completado,
+                "ticket.dificultad": ticket.dificultad,
+                "ticket.prioridad": ticket.prioridad,
+                "ticket.nombre": ticket.nombre,
+                "ticket.proyecto_id": ticket.proyecto_id,
+                "ticket.desarrollador_id": ticket.desarrollador_id
+                }
+            }
+        )
+    return result;
+}
+
+
+module.exports = { getProjects, newProject, updateProjectData, getTickets, getTeam, removeTeamMemeber, removeFromAllTeams, unassignFromAllTickets, getProject, getAllTeams, updateTeam, updateTicket }

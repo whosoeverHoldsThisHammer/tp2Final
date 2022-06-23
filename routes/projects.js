@@ -54,5 +54,28 @@ router.put('/unassignFromAllTickets/:id', async(req, res) => {
   res.json(result);
 });
 
+router.get('/teams', async(req, res, next) => {
+  const teams = await data.getAllTeams();
+  res.json(teams);
+});
+
+router.get('/:id', async(req, res) => {
+  const id = req.params.id;
+  const project = await data.getProject(id);
+  res.json(project);
+});
+
+router.put('/updateTicket/:id', async(req, res) => {
+  const ticket = req.body;
+  const result = await data.updateTicket(ticket, req.params.id)
+  res.json(result)
+})
+
+router.put('/updateTeam/:id', async(req, res) => {
+  const team = req.body;
+  const result = await data.updateTeam(team, req.params.id)
+  res.json(result)
+})
+
 
 module.exports = router;
