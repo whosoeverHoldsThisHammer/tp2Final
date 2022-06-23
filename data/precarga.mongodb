@@ -11,18 +11,18 @@ use('tp2_final');
 db.managers.drop();
 
 // Insert a few documents into the sales collection.
-db.managers.insertOne([
-  { '_id': 1, 'nombre': 'Pablo Martinez' },
+db.managers.insertMany([
+  { 'nombre': 'Pablo Martinez' },
 ]);
 
 db.desarrolladores.drop();
 
 db.desarrolladores.insertMany([
-  { '_id': 1, 'nombre': 'Juan Perez', 'proyecto_id': 0  },
-  { '_id': 2,'nombre': 'Catalina Buljevich', 'proyecto_id': 1  },
-  { '_id': 3,'nombre': 'Agustina Lois', 'proyecto_id': 1  },
-  { '_id': 4,'nombre': 'Andres Fiorito', 'proyecto_id': 1  },
-  { '_id': 5,'nombre': 'Federico Sassy', 'proyecto_id': 1  },
+  { 'nombre': 'Juan Perez', 'proyecto_id': ""  },
+  { 'nombre': 'Catalina Buljevich', 'proyecto_id': "" },
+  { 'nombre': 'Agustina Lois', 'proyecto_id': "" }, 
+  { 'nombre': 'Andres Fiorito', 'proyecto_id': "" },
+  { 'nombre': 'Federico Sassy', 'proyecto_id': "" },
 ]);
 
 db.proyectos.drop();
@@ -31,35 +31,35 @@ db.proyectos.insertMany([
   { 
   'nombre': 'ONG',
   'equipo': {'nombre': 'Equipo Alfa', 'desarrolladores': [
-    { '_id': 1, 'nombre': 'Juan Perez', 'proyecto_id': 0  },
-    { '_id': 2,'nombre': 'Catalina Buljevich', 'proyecto_id': 1  },
+    { 'nombre': 'Juan Perez', 'proyecto_id': ""  },
+    { 'nombre': 'Catalina Buljevich', 'proyecto_id': ""  },
   ]},
   'tickets': [
-    { 'nombre': 'Crear Barra de Navegacion', 'descripcion': "Crear una barra de navegacion desplegable", 'completado': false, 'dificultad': 5, 'prioridad': 1, 'desarrollador_id': 1 },
-    { 'nombre': 'Crear Conexion con BD', 'descripcion': "Asociar a Mondo DB", 'completado': false, 'dificultad': 7, 'prioridad': 2, 'desarrollador_id': 1 },
-    { 'nombre': 'Crear Endpoint Manager', 'descripcion': "Crear un Endpoint para ver lista de desarrolladores ", 'completado': false, 'dificultad': 9, 'prioridad': 4, 'desarrollador_id': 1 },
-    { 'nombre': 'Dejar mensajes de error ', 'descripcion': "Establecer errores base", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'desarrollador_id': 5 },
-    { 'nombre': 'Enviar notificaciones a usuarios', 'descripcion': "Enviar mensajes con novedades a los usuarios", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'desarrollador_id': 5 },],
+    { 'nombre': 'Crear Barra de Navegacion', 'descripcion': "Crear una barra de navegacion desplegable", 'completado': false, 'dificultad': 5, 'prioridad': 1, 'desarrollador_id': "" },
+    { 'nombre': 'Crear Conexion con BD', 'descripcion': "Asociar a Mondo DB", 'completado': false, 'dificultad': 7, 'prioridad': 2, 'desarrollador_id': "" },
+    { 'nombre': 'Crear Endpoint Manager', 'descripcion': "Crear un Endpoint para ver lista de desarrolladores ", 'completado': false, 'dificultad': 9, 'prioridad': 4, 'desarrollador_id': "" },
+    { 'nombre': 'Dejar mensajes de error ', 'descripcion': "Establecer errores base", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'desarrollador_id': "" },
+    { 'nombre': 'Enviar notificaciones a usuarios', 'descripcion': "Enviar mensajes con novedades a los usuarios", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'desarrollador_id': "" },],
   'progreso': 0.0,
   'completado': false,
-  'manager': { '_id': 1, 'nombre': 'Pablo Martinez' },
+  'manager': { '_id': "", 'nombre': 'Pablo Martinez' },
   },
   {
   'nombre': 'Empresa Contable',
   'equipo': {'nombre': 'Equipo Beta', 'desarrolladores': [
-    { '_id': 3,'nombre': 'Agustina Lois', 'proyecto_id': 1  },
-    { '_id': 4,'nombre': 'Andres Fiorito', 'proyecto_id': 1  },
-    { '_id': 5,'nombre': 'Federico Sassy', 'proyecto_id': 1  },
+    { '_id': "",'nombre': 'Agustina Lois', 'proyecto_id': ""  },
+    { '_id': "",'nombre': 'Andres Fiorito', 'proyecto_id': ""  },
+    { '_id': "",'nombre': 'Federico Sassy', 'proyecto_id': ""  },
   ]},
   'tickets': [
-    { 'nombre': 'Crear Barra de Navegacion', 'descripcion': "Crear una barra de navegacion desplegable", 'completado': false, 'dificultad': 5, 'prioridad': 1, 'desarrollador_id': 1 },
-    { 'nombre': 'Crear Conexion con BD', 'descripcion': "Asociar a Mondo DB", 'completado': false, 'dificultad': 7, 'prioridad': 2, 'desarrollador_id': 1 },
-    { 'nombre': 'Crear Endpoint Manager', 'descripcion': "Crear un Endpoint para ver lista de desarrolladores ", 'completado': false, 'dificultad': 9, 'prioridad': 4, 'desarrollador_id': 1 },
-    { 'nombre': 'Dejar mensajes de error ', 'descripcion': "Establecer errores base", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'desarrollador_id': 5 },
-    { 'nombre': 'Enviar notificaciones a usuarios', 'descripcion': "Enviar mensajes con novedades a los usuarios", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'desarrollador_id': 5 },],
+    { 'nombre': 'Crear Barra de Navegacion', 'descripcion': "Crear una barra de navegacion desplegable", 'completado': false, 'dificultad': 5, 'prioridad': 1, 'desarrollador_id': "" },
+    { 'nombre': 'Crear Conexion con BD', 'descripcion': "Asociar a Mondo DB", 'completado': false, 'dificultad': 7, 'prioridad': 2, 'desarrollador_id': "" },
+    { 'nombre': 'Crear Endpoint Manager', 'descripcion': "Crear un Endpoint para ver lista de desarrolladores ", 'completado': false, 'dificultad': 9, 'prioridad': 4, 'desarrollador_id': "" },
+    { 'nombre': 'Dejar mensajes de error ', 'descripcion': "Establecer errores base", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'desarrollador_id': "" },
+    { 'nombre': 'Enviar notificaciones a usuarios', 'descripcion': "Enviar mensajes con novedades a los usuarios", 'completado': false, 'dificultad': 2, 'prioridad': 7, 'desarrollador_id': "" },],
   'progreso': 0.0,
   'completado': false,
-  'manager': { '_id': 1, 'nombre': 'Pablo Martinez' },
+  'manager': { '_id': "", 'nombre': 'Pablo Martinez' },
   },
 ]);
 
