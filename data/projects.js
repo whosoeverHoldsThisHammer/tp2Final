@@ -165,18 +165,23 @@ async function updateTicket(ticket, id){
         .db('tp2_final')
         .collection('proyectos')
         .updateOne(
-            {_id: new objectId(id)},
+          //  {_id: new objectId(id), "tickets.$._id" : new objectId(ticket._id)},
+          {_id: new objectId(id)},
             { $set: {
-                "ticket.nombre": ticket.nombre,
-                "ticket.descripcion": ticket.descripcion,
-                "ticket.completado": ticket.completado,
-                "ticket.dificultad": ticket.dificultad,
-                "ticket.prioridad": ticket.prioridad,
-                "ticket.nombre": ticket.nombre,
-                "ticket.proyecto_id": ticket.proyecto_id,
-                "ticket.desarrollador_id": ticket.desarrollador_id
+                "tickets.$[elem]._id": ticket._id,
+                "tickets.$[elem].nombre": ticket.nombre,
+                "tickets.$[elem].descripcion": ticket.descripcion,
+                "tickets.$[elem].completado": ticket.completado,
+                "tickets.$[elem].dificultad": ticket.dificultad,
+                "tickets.$[elem].prioridad": ticket.prioridad,
+                "tickets.$[elem].nombre": ticket.nombre,
+                "tickets.$[elem].proyecto_id": ticket.proyecto_id,
+                "tickets.$[elem].desarrollador_id": ticket.desarrollador_id
                 }
+            },{
+                arrayFilters: [{"elem._id": ticket._id}]
             }
+           
         )
     return result;
 }
