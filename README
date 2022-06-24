@@ -125,5 +125,7 @@ PROYECTO:
 -GetOnly() //AGUS
 -UPDATE() por equipo //AGUS
 -UPDATE() por tickets //AGUS
--Update
--Delete
+-Update // ANDRES
+-Delete // FEDE
+
+
