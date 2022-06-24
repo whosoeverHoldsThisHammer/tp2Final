@@ -73,11 +73,15 @@ QUE ESTA HECHO!!
 
 - GET api/projects/tickets
 - GET api/projects/team/:nombre
+- GET api/projects/teams
+- GET api/projects/:id
 - POST api/projects
 - PUT api/projects/update
 - PUT api/projects/team/remove/:team_id/:user_id
 - PUT api/projects/removeFromAllTeams/:id
 - PUT api/projects/unassignFromAllTickets/:id
+- PUT api/projects/updateTeams/:id
+- PUT api/projects/updateTickets/:id
 
 # USERS
 
