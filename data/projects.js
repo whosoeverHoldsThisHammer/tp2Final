@@ -165,7 +165,6 @@ async function updateTicket(ticket, id){
         .db('tp2_final')
         .collection('proyectos')
         .updateOne(
-          //  {_id: new objectId(id), "tickets.$._id" : new objectId(ticket._id)},
           {"tickets._id": new objectId(id)},
             { $set: {
                 "tickets.$.nombre": ticket.nombre,
@@ -177,11 +176,7 @@ async function updateTicket(ticket, id){
                 "tickets.$.proyecto_id": ticket.proyecto_id,
                 "tickets.$.desarrollador_id": ticket.desarrollador_id
                 }
-            }
-            //{
-            //    arrayFilters: [{"elem._id": ticket._id}]
-            //}
-           
+            }                   
         )
     return result;
 }
