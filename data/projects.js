@@ -166,21 +166,21 @@ async function updateTicket(ticket, id){
         .collection('proyectos')
         .updateOne(
           //  {_id: new objectId(id), "tickets.$._id" : new objectId(ticket._id)},
-          {_id: new objectId(id)},
+          {"tickets._id": new objectId(id)},
             { $set: {
-                "tickets.$[elem]._id": ticket._id,
-                "tickets.$[elem].nombre": ticket.nombre,
-                "tickets.$[elem].descripcion": ticket.descripcion,
-                "tickets.$[elem].completado": ticket.completado,
-                "tickets.$[elem].dificultad": ticket.dificultad,
-                "tickets.$[elem].prioridad": ticket.prioridad,
-                "tickets.$[elem].nombre": ticket.nombre,
-                "tickets.$[elem].proyecto_id": ticket.proyecto_id,
-                "tickets.$[elem].desarrollador_id": ticket.desarrollador_id
+                "tickets.$.nombre": ticket.nombre,
+                "tickets.$.descripcion": ticket.descripcion,
+                "tickets.$.completado": ticket.completado,
+                "tickets.$.dificultad": ticket.dificultad,
+                "tickets.$.prioridad": ticket.prioridad,
+                "tickets.$.nombre": ticket.nombre,
+                "tickets.$.proyecto_id": ticket.proyecto_id,
+                "tickets.$.desarrollador_id": ticket.desarrollador_id
                 }
-            },{
-                arrayFilters: [{"elem._id": ticket._id}]
             }
+            //{
+            //    arrayFilters: [{"elem._id": ticket._id}]
+            //}
            
         )
     return result;
