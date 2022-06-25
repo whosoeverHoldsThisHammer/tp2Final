@@ -14,7 +14,7 @@ router.post('/', async(req, res) =>{
 })
 
 
-router.put('/update', async(req, res) => {
+router.put('/updateProject/', async(req, res) => {
   const project = req.body;
   const result = await data.updateProjectData(project)
   res.json(result)
@@ -24,6 +24,12 @@ router.put('/update', async(req, res) => {
 router.get('/tickets', async(req, res, next) => {
   const tickets = await data.getTickets();
   res.json(tickets);
+});
+
+router.get('/ticket/:id', async(req, res, next) => {
+  const id = req.params.id;
+  const ticket = await data.getTicket(id);
+  res.json(ticket);
 });
 
 router.get('/team/:name', async(req, res, next) => {

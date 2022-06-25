@@ -22,7 +22,7 @@ async function newProject(project){
     return result;
 }
 
-async function updateProjectData(project){
+async function updateProject(project){
     const clientMongo = await connection.getConnection();
     const result = await clientMongo
         .db('tp2_final')
@@ -32,7 +32,8 @@ async function updateProjectData(project){
             { $set: {
                 nombre: project.nombre,
                 progreso: project.progreso,
-                completado: project.completado
+                completado: project.completado,
+                manager: project.manager
                 }
             }
         )
@@ -50,6 +51,25 @@ async function getTickets(){
         .toArray()
     
     return tickets;
+}
+
+
+async function getTicket(id){
+    const clientMongo = await connection.getConnection();
+    const result = await clientMongo
+        .db('tp2_final')
+        .collection('proyectos')
+        .find(
+            {"tickets._id": new objectId(id)},
+            {
+                projection: {
+                    tickets: { $elemMatch: { _id: new objectId(id) } }
+                },
+            }
+        )
+        .toArray();
+
+    return result;
 }
 
 
@@ -182,4 +202,4 @@ async function updateTicket(ticket, id){
 }
 
 
-module.exports = { getProjects, newProject, updateProjectData, getTickets, getTeam, removeTeamMemeber, removeFromAllTeams, unassignFromAllTickets, getProject, getAllTeams, updateTeam, updateTicket }
+module.exports = { getProjects, newProject, updateProject, getTickets, getTicket, getTeam, removeTeamMemeber, removeFromAllTeams, unassignFromAllTickets, getProject, getAllTeams, updateTeam, updateTicket }
