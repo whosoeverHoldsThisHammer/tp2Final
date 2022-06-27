@@ -1,22 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const data = require("./../data/users");
+const controller = require("./../controllers/users");
 
 router.get("/", async function (req, res, next) {
-  const users = await data.getAllUsers();
+  const users = await controller.getAllUsers();
   res.json(users);
 });
 
 router.post("/", async (req, res) => {
   const user = req.body;
-  const result = await data.addUser(user);
+  const result = await controller.addUser(user);
   res.status(201).json(result);
 });
 
 router.post("/login", async (req, res) => {
   try {
-    const user = await data.findByCredential(req.body.email, req.body.password);
-    const token = data.generateToken(user);
+    const user = await controller.findByCredential(req.body.email, req.body.password);
+    const token = controller.generateToken(user);
     res.send({ user, token });
   } catch (error) {
     console.log(error);

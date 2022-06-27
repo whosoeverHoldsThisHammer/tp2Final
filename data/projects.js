@@ -85,7 +85,7 @@ async function getTeam(name){
 }
 
 
-async function removeTeamMemeber(team_id, user_id){
+async function removeTeamMember(team_id, user_id){
     const clientMongo = await connection.getConnection();
     const result = await clientMongo
         .db('tp2_final')
@@ -201,5 +201,16 @@ async function updateTicket(ticket, id){
     return result;
 }
 
+async function deleteProject(id){
+    const clientMongo = await connection.getConnection();
+    const result = await clientMongo
+        .db('tp2_final')
+        .collection('proyectos')
+        .deleteOne({_id: new objectId(id)})
 
-module.exports = { getProjects, newProject, updateProject, getTickets, getTicket, getTeam, removeTeamMemeber, removeFromAllTeams, unassignFromAllTickets, getProject, getAllTeams, updateTeam, updateTicket }
+    return result;
+}
+
+
+module.exports = { getProjects, newProject, updateProject, getTickets, getTicket, getTeam, removeTeamMember, removeFromAllTeams,
+     unassignFromAllTickets, getProject, getAllTeams, updateTeam, updateTicket, deleteProject }
