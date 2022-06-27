@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const controller = require("./../controllers/users");
+const auth = require("./../middlewares/Auth");
 
-router.get("/", async function (req, res, next) {
+router.get("/", auth,  async function (req, res, next) {
   const users = await controller.getAllUsers();
   res.json(users);
 });
