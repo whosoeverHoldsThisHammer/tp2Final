@@ -83,6 +83,7 @@ QUE ESTA HECHO!!
 - PUT api/projects/unassignFromAllTickets/:id
 - PUT api/projects/updateTeams/:id
 - PUT api/projects/updateTickets/:id
+- DELETE api/projects/:id
 
 # USERS
 
@@ -118,6 +119,5 @@ LOGIN!!!! AUTENTICACION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! //CATA
 PROYECTO:
 -Pasar GetAll() equipos, dentro de proyecto //AGUS
 -GetOnly() //AGUS
--Delete // FEDE
 
 
