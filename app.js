@@ -9,6 +9,7 @@ var devsRouter = require("./routes/devs");
 var projectsRouter = require("./routes/projects");
 var usersRouter = require("./routes/users");
 var managsRouter = require("./routes/managers");
+const auth = require("./middlewares/Auth");
 
 var app = express();
 
@@ -23,10 +24,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/api/devs", devsRouter);
-app.use("/api/projects", projectsRouter);
+app.use("/api/devs", auth,  devsRouter);
+app.use("/api/projects", auth, projectsRouter);
 app.use("/api/users", usersRouter);
-app.use("/api/managers", managsRouter);
+app.use("/api/managers",auth, managsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

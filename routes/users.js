@@ -8,7 +8,7 @@ router.get("/", auth,  async function (req, res, next) {
   res.json(users);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const user = req.body;
   const result = await controller.addUser(user);
   res.status(201).json(result);

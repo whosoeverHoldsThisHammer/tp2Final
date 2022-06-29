@@ -22,7 +22,7 @@ async function newProject(project){
     return result;
 }
 
-async function updateProject(project){
+async function updateProjectData(project){
     const clientMongo = await connection.getConnection();
     const result = await clientMongo
         .db('tp2_final')
@@ -47,7 +47,7 @@ async function getTickets(){
     const tickets = await clientMongo
         .db('tp2_final')
         .collection('proyectos')
-        .find().project({ tickets: 1 })
+        .find().project({nombre: 1, tickets: 1 })
         .toArray()
     
     return tickets;
@@ -73,33 +73,16 @@ async function getTicket(id){
 }
 
 
+
 async function getTeam(name){
     const clientMongo = await connection.getConnection();
     const team = await clientMongo
         .db('tp2_final')
         .collection('proyectos')
-        .find( { 'equipo.nombre' : name})
+        .find( { 'equipo.nombre' : name}).project({ 'equipo.nombre': 1, "equipo.desarrolladores": 1})
         .toArray()
     
     return team;
-}
-
-
-async function removeTeamMember(team_id, user_id){
-    const clientMongo = await connection.getConnection();
-    const result = await clientMongo
-        .db('tp2_final')
-        .collection('proyectos')
-        .updateMany(
-            {_id: new objectId(team_id)},
-            { $pull:
-                {
-                    'equipo.desarrolladores': { _id: new objectId(user_id) }
-                }
-            }
-        )
-
-    return result;
 }
 
 
@@ -112,7 +95,7 @@ async function removeFromAllTeams(id){
             {},
             { $pull:
                 {
-                    'equipo.desarrolladores': { _id: new objectId(id) }
+                   'equipo.desarrolladores': { _id: new objectId(id) }
                 }
             }
         )
@@ -120,22 +103,6 @@ async function removeFromAllTeams(id){
     return result;
 }
 
-async function unassignFromAllTickets(id){
-    const clientMongo = await connection.getConnection();
-    const result = await clientMongo
-        .db('tp2_final')
-        .collection('proyectos')
-        .updateMany(
-            {'tickets.desarrollador_id': { _id: new objectId(id) } },
-            { $set:
-                {
-                    'tickets.$.desarrollador_id' : ""
-                }
-            }
-        )
-
-    return result;
-}
 
 async function getProject(id){
     const clientMongo = await connection.getConnection();
@@ -212,5 +179,5 @@ async function deleteProject(id){
 }
 
 
-module.exports = { getProjects, newProject, updateProject, getTickets, getTicket, getTeam, removeTeamMember, removeFromAllTeams,
-     unassignFromAllTickets, getProject, getAllTeams, updateTeam, updateTicket, deleteProject }
+module.exports = { getProjects, newProject, updateProjectData, getTickets, getTicket, getTeam, removeFromAllTeams,
+     getProject, getAllTeams, updateTeam, updateTicket, deleteProject }
