@@ -160,7 +160,6 @@ async function updateTicket(ticket, id){
                 "tickets.$.dificultad": ticket.dificultad,
                 "tickets.$.prioridad": ticket.prioridad,
                 "tickets.$.nombre": ticket.nombre,
-                "tickets.$.proyecto_id": ticket.proyecto_id,
                 "tickets.$.desarrollador_id": ticket.desarrollador_id
                 }
             }                   
