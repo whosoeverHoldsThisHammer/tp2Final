@@ -14,6 +14,7 @@ async function getAllUsers() {
 }
 
 async function addUser(user) {
+  console.log(user)
   const connectiondb = await connection.getConnection();
   user.password = await bcrypt.hash(user.password, 8);
   const usuario = await connectiondb
@@ -25,13 +26,10 @@ async function addUser(user) {
 
 async function findByCredential(email, password) {
   const connectiondb = await connection.getConnection();
-  console.log(email);
-  console.log(password);
   const user = await connectiondb
     .db("tp2_final")
     .collection("users")
     .findOne({ email: email });
-  console.log(user);
 
   if (!user) {
     throw new Error("Credenciales no validas");

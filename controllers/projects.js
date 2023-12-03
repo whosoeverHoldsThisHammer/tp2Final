@@ -45,6 +45,10 @@ async function updateTeam(team, id) {
     return projects.updateTeam(team, id);
 }
 
+async function addTicket(ticket, id) {
+    return projects.addTicket(ticket, id);
+}
+
 async function updateTicket(ticket, id) {
     return projects.updateTicket(ticket, id);
 }
@@ -54,4 +58,4 @@ async function deleteProject(id) {
 }
 
 module.exports = { getProjects, newProject, updateProjectData, getTickets, getTicket, getTeam, removeFromAllTeams,
-     getProject, getAllTeams, updateTeam, updateTicket, deleteProject }
+     getProject, getAllTeams, updateTeam, addTicket, updateTicket, deleteProject }

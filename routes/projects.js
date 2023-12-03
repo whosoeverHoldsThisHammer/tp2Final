@@ -63,6 +63,14 @@ router.put('/updateTicket/:id', async(req, res) => {
   res.json(result)
 })
 
+
+// add ticket
+router.put('/addTicket/:id', async(req, res) => {
+  const ticket = req.body;
+  const result = await controller.addTicket(ticket, req.params.id)
+  res.json(result)
+})
+
 //update team
 router.put('/updateTeam/:id', async(req, res) => {
   const team = req.body;

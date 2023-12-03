@@ -145,6 +145,27 @@ async function updateTeam(team, id){
     return result;
 }
 
+async function addTicket(ticket, id){
+    console.log(ticket)
+    const clientMongo = await connection.getConnection();
+    const result = await clientMongo
+        .db('tp2_final')
+        .collection('proyectos')
+        .updateOne(
+            { _id: new objectId(id) },
+            { $push: { tickets: {
+                "_id": new objectId(), 
+                "nombre" : ticket.nombre,
+                "descripcion": ticket.descripcion,
+                "completado": ticket.completado,
+                "dificultad": ticket.dificultad,
+                "prioridad": ticket.prioridad,
+                "desarrollador_id": ticket.desarrollador_id
+            }}}                  
+        )
+    return result;
+}
+
 async function updateTicket(ticket, id){
     console.log(ticket)
     const clientMongo = await connection.getConnection();
@@ -178,5 +199,5 @@ async function deleteProject(id){
 }
 
 
-module.exports = { getProjects, newProject, updateProjectData, getTickets, getTicket, getTeam, removeFromAllTeams,
+module.exports = { getProjects, newProject, updateProjectData, getTickets, getTicket, addTicket, getTeam, removeFromAllTeams,
      getProject, getAllTeams, updateTeam, updateTicket, deleteProject }
