@@ -2,8 +2,8 @@ const connection = require("./conn");
 const objectId = require("mongodb").ObjectId;
 
 async function getDevs() {
-  const clientMongo = await connection.getConnection();
-  const devs = await clientMongo
+  const connectiondb = await connection.getConnection();
+  const devs = await connectiondb
     .db("tp2_final")
     .collection("desarrolladores")
     .find()
@@ -13,8 +13,8 @@ async function getDevs() {
 }
 
 async function getDev(id) {
-  const clientMongo = await connection.getConnection();
-  const dev = await clientMongo
+  const connectiondb = await connection.getConnection();
+  const dev = await connectiondb
     .db("tp2_final")
     .collection("desarrolladores")
     .findOne({ _id: new objectId(id) });
@@ -23,8 +23,8 @@ async function getDev(id) {
 }
 
 async function newDev(dev) {
-  const clientMongo = await connection.getConnection();
-  const result = await clientMongo
+  const connectiondb = await connection.getConnection();
+  const result = await connectiondb
     .db("tp2_final")
     .collection("desarrolladores")
     .insertOne(dev);
@@ -33,8 +33,8 @@ async function newDev(dev) {
 }
 
 async function updateDev(dev){
-    const clientMongo = await connection.getConnection();
-    const result = await clientMongo
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
         .db('tp2_final')
         .collection('desarrolladores')
         .updateOne(
@@ -50,8 +50,8 @@ async function updateDev(dev){
 }
 
 async function deleteDev(id){
-    const clientMongo = await connection.getConnection();
-    const result = await clientMongo
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
         .db('tp2_final')
         .collection('desarrolladores')
         .deleteOne({_id: new objectId(id)})
