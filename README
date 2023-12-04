@@ -30,9 +30,9 @@ SISTEMA DE ADMINISTRACION DE PROYECTOS:
 - PUT api/projects/updateProjectManager/:id
 - PUT api/projects/addTicketToProject/:id
 - PUT api/projects/removeTicketToProject/:id
+- PUT api/projects/updateTeam/:id
 - PUT api/projects/addTeamMember/:id
 - PUT api/projects/removeTeamMember/:id
-- PUT api/projects/updateTeam/:id
 - DELETE api/projects/:id
 
 # USERS
