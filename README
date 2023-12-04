@@ -1,11 +1,10 @@
 TRABAJO PRACTICO FINAL "TALLER DE PROGRAMACION 2":
 
 SISTEMA DE ADMINISTRACION DE PROYECTOS:
--CRUD Developers
--CRUD Managers
--CRUD Projects
--Se administra equipos asignados a proyectos, equipo asignado, integracion del equipo, asignacion de manager y administracion de tickets de tareas
-del proyecto
+- CRUD Developers
+- CRUD Managers
+- CRUD Projects
+- Se administra equipos asignados a proyectos, equipo asignado, integracion del equipo, asignacion de manager y administracion de tickets de tareas del proyecto
 
 # DEVS
 
@@ -26,6 +25,13 @@ del proyecto
 - GET api/projects/
 - POST api/projects/
 - PUT api/projects/updateProject
+- PUT api/projects/updateProjectName/:id
+- PUT api/projects/updateProjectProgress/:id
+- PUT api/projects/updateProjectManager/:id
+- PUT api/projects/addTicketToProject/:id
+- PUT api/projects/removeTicketToProject/:id
+- PUT api/projects/addTeamMember/:id
+- PUT api/projects/removeTeamMember/:id
 - PUT api/projects/updateTeam/:id
 - DELETE api/projects/:id
 
