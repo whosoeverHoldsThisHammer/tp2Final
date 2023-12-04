@@ -12,6 +12,17 @@ async function updateProjectData(project) {
     return projects.updateProjectData(project);
 }
 
+async function updateProjectName(name, id) {
+    return projects.updateProjectName(name, id);
+}
+
+async function updateProjectProgress(project, id) {
+    return projects.updateProjectProgress(project, id);
+}
+
+async function updateProjectManager(manager, id) {
+    return projects.updateProjectManager(manager, id);
+}
 
 async function getTickets() {
     return projects.getTickets();
@@ -41,12 +52,24 @@ async function getAllTeams() {
         return projects.getAllTeams();
 }
 
-async function updateTeam(team, id) {
-    return projects.updateTeam(team, id);
+async function updateTeamName(team, id) {
+    return projects.updateTeamName(team, id);
 }
 
-async function addTicket(ticket, id) {
-    return projects.addTicket(ticket, id);
+async function addTeamMember(team, id) {
+    return projects.addTeamMember(team, id);
+}
+
+async function removeTeamMember(team, id) {
+    return projects.removeTeamMember(team, id);
+}
+
+async function addTicketToProject(ticket, id) {
+    return projects.addTicketToProject(ticket, id);
+}
+
+async function removeTicketFromProject(ticket, id) {
+    return projects.removeTicketFromProject(ticket, id);
 }
 
 async function updateTicket(ticket, id) {
@@ -57,5 +80,5 @@ async function deleteProject(id) {
     return projects.deleteProject(id);
 }
 
-module.exports = { getProjects, newProject, updateProjectData, getTickets, getTicket, getTeam, removeFromAllTeams,
-     getProject, getAllTeams, updateTeam, addTicket, updateTicket, deleteProject }
+module.exports = { getProjects, newProject, updateProjectData, updateProjectName, updateProjectProgress, updateProjectManager, getTickets, getTicket, getTeam, removeFromAllTeams,
+     getProject, getAllTeams, updateTeamName, addTeamMember, removeTeamMember, addTicketToProject, removeTicketFromProject, updateTicket, deleteProject }

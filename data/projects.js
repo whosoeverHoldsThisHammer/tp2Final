@@ -2,8 +2,8 @@ const connection = require('./conn')
 const objectId = require('mongodb').ObjectId;
 
 async function getProjects(){
-    const clientMongo = await connection.getConnection();
-    const projects = await clientMongo
+    const connectiondb = await connection.getConnection();
+    const projects = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .find()
@@ -13,8 +13,8 @@ async function getProjects(){
 }
 
 async function newProject(project){
-    const clientMongo = await connection.getConnection();
-    const result = await clientMongo
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .insertOne(project);
@@ -23,8 +23,8 @@ async function newProject(project){
 }
 
 async function updateProjectData(project){
-    const clientMongo = await connection.getConnection();
-    const result = await clientMongo
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .updateOne(
@@ -41,10 +41,58 @@ async function updateProjectData(project){
     return result;
 }
 
+async function updateProjectName(name, id){
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
+        .db('tp2_final')
+        .collection('proyectos')
+        .updateOne(
+            {_id: new objectId(id)},
+            { $set: {
+                nombre: name
+                }
+            }
+        )
+
+    return result;
+}
+
+async function updateProjectProgress(project, id){
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
+        .db('tp2_final')
+        .collection('proyectos')
+        .updateOne(
+            {_id: new objectId(id)},
+            { $set: {
+                progreso: project.progreso,
+                completado: project.completado,
+                }
+            }
+        )
+
+    return result;
+}
+
+async function updateProjectManager(manager, id){
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
+        .db('tp2_final')
+        .collection('proyectos')
+        .updateOne(
+            {_id: new objectId(id)},
+            { $set: {
+                manager: manager
+                }
+            }
+        )
+
+    return result;
+}
 
 async function getTickets(){
-    const clientMongo = await connection.getConnection();
-    const tickets = await clientMongo
+    const connectiondb = await connection.getConnection();
+    const tickets = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .find().project({nombre: 1, tickets: 1 })
@@ -55,8 +103,8 @@ async function getTickets(){
 
 
 async function getTicket(id){
-    const clientMongo = await connection.getConnection();
-    const result = await clientMongo
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .find(
@@ -75,8 +123,8 @@ async function getTicket(id){
 
 
 async function getTeam(name){
-    const clientMongo = await connection.getConnection();
-    const team = await clientMongo
+    const connectiondb = await connection.getConnection();
+    const team = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .find( { 'equipo.nombre' : name}).project({ 'equipo.nombre': 1, "equipo.desarrolladores": 1})
@@ -87,8 +135,8 @@ async function getTeam(name){
 
 
 async function removeFromAllTeams(id){
-    const clientMongo = await connection.getConnection();
-    const result = await clientMongo
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .updateMany(
@@ -105,8 +153,8 @@ async function removeFromAllTeams(id){
 
 
 async function getProject(id){
-    const clientMongo = await connection.getConnection();
-    const project = await clientMongo
+    const connectiondb = await connection.getConnection();
+    const project = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .findOne({_id: new objectId(id)})
@@ -115,8 +163,8 @@ async function getProject(id){
 }
 
 async function getAllTeams(){
-    const clientMongo = await connection.getConnection();
-    const teams = await clientMongo
+    const connectiondb = await connection.getConnection();
+    const teams = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .find({})
@@ -129,32 +177,65 @@ async function getAllTeams(){
         return teams;
 }
 
-async function updateTeam(team, id){
-    const clientMongo = await connection.getConnection();
-    const result = await clientMongo
+async function updateTeamName(team, id){
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
         .db('tp2_final')
         .collection('proyectos')       
         .updateOne(
             {_id: new objectId(id)},
             { $set: {
                 "equipo.nombre" : team.nombre,
-                "equipo.desarrolladores" : team.desarrolladores
+                //"equipo.desarrolladores" : team.desarrolladores
                 }
             }
         )
     return result;
 }
 
-async function addTicket(ticket, id){
-    console.log(ticket)
-    const clientMongo = await connection.getConnection();
-    const result = await clientMongo
+async function addTeamMember(member, id){
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
+        .db('tp2_final')
+        .collection('proyectos')
+        .updateOne(
+            { _id: new objectId(id) },
+            { $push: { 
+                "equipo.desarrolladores": {
+                    "_id": new objectId(), 
+                    "nombre" : member.nombre
+                }
+            }}                  
+        )
+    return result;
+}
+
+async function removeTeamMember(member, id){
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
+        .db('tp2_final')
+        .collection('proyectos')
+        .updateOne(
+            { _id: new objectId(id) },
+            { $pull: { 
+                "equipo.desarrolladores": {
+                    "_id": new objectId(member._id), 
+                    "nombre" : member.nombre
+                }
+            }}                  
+        )
+    return result;
+}
+
+async function addTicketToProject(ticket, id){
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .updateOne(
             { _id: new objectId(id) },
             { $push: { tickets: {
-                "_id": new objectId(), 
+                "_id": new objectId(ticket._id), 
                 "nombre" : ticket.nombre,
                 "descripcion": ticket.descripcion,
                 "completado": ticket.completado,
@@ -166,10 +247,30 @@ async function addTicket(ticket, id){
     return result;
 }
 
+async function removeTicketFromProject(ticket, id){
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
+        .db('tp2_final')
+        .collection('proyectos')
+        .updateOne(
+            { _id: new objectId(id) },
+            { $pull: { tickets: {
+                "_id": new objectId(ticket._id),
+                "nombre" : ticket.nombre,
+                "descripcion": ticket.descripcion,
+                "completado": ticket.completado,
+                "dificultad": ticket.dificultad,
+                "prioridad": ticket.prioridad,
+                "desarrollador_id": ticket.desarrollador_id 
+            }}}
+        )
+        
+    return result;
+}
+
 async function updateTicket(ticket, id){
-    console.log(ticket)
-    const clientMongo = await connection.getConnection();
-    const result = await clientMongo
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .updateOne(
@@ -189,8 +290,8 @@ async function updateTicket(ticket, id){
 }
 
 async function deleteProject(id){
-    const clientMongo = await connection.getConnection();
-    const result = await clientMongo
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .deleteOne({_id: new objectId(id)})
@@ -199,5 +300,6 @@ async function deleteProject(id){
 }
 
 
-module.exports = { getProjects, newProject, updateProjectData, getTickets, getTicket, addTicket, getTeam, removeFromAllTeams,
-     getProject, getAllTeams, updateTeam, updateTicket, deleteProject }
+module.exports = {
+    getProjects, newProject, updateProjectData, updateProjectName, updateProjectProgress, updateProjectManager, getTickets, getTicket, addTicketToProject, removeTicketFromProject,
+    getTeam, addTeamMember, removeTeamMember, removeFromAllTeams, getProject, getAllTeams, updateTeamName, updateTicket, deleteProject }
