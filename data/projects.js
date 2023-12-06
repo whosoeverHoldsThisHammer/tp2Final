@@ -22,16 +22,97 @@ async function newProject(project){
     return result;
 }
 
-async function updateProjectData(project){
+async function getProjectsByManager(id){
+    console.log(id)
+    const connectiondb = await connection.getConnection();
+    const projects = await connectiondb
+        .db('tp2_final')
+        .collection('proyectos')
+        .find({
+            "manager._id": new objectId(id)
+        })
+        .toArray()
+    
+    return projects;
+}
+
+async function findProjects(managerId, completado, page, size){
+    let query = {}
+    query["manager._id"] = new objectId(managerId)
+
+    if(completado){
+        query = {$and: [
+            {"manager._id": new objectId(managerId)},
+            {"completado": completado == 'true' ? Boolean('true') : Boolean() }
+        ]}
+    }
+
+    const connectiondb = await connection.getConnection();
+    const projects = await connectiondb
+        .db('tp2_final')
+        .collection('proyectos')
+        .find(query)
+        .limit(size)
+        .skip(page * size)
+        .toArray()
+    
+    return projects;
+}
+
+async function findTickets(devId){
+    const connectiondb = await connection.getConnection();
+    const projects = await connectiondb
+        .db('tp2_final')
+        .collection('proyectos')
+        .aggregate([
+            { $match: { 'tickets.desarrollador_id': new objectId(devId) } },
+            {
+              $project: {
+                _id: 1,
+                nombre: 1,
+                tickets: {
+                  $filter: {
+                    input: '$tickets',
+                    as: 'ticket',
+                    cond: { $eq: ['$$ticket.desarrollador_id', new objectId(devId)] },
+                  },
+                },
+              },
+            }
+          ])
+          .toArray();
+        
+    return projects;
+}
+
+async function updateProject(id, project){
+
+    project.equipo.desarrolladores !== undefined
+    ? project.equipo.desarrolladores.forEach(desarrollador => desarrollador._id = new objectId(desarrollador._id))
+    : null
+
+    project.tickets.length > 0
+    ? project.tickets.forEach(ticket => {
+        ticket._id = new objectId(ticket._id)
+        ticket.desarrollador_id !== "" 
+        ? ticket.desarrollador_id = new objectId(ticket.desarrollador_id)
+        : null
+    })
+    : null
+    
+    project.manager._id !== undefined ? project.manager._id = new objectId(project.manager._id) : null
+
     const connectiondb = await connection.getConnection();
     const result = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .updateOne(
-            {_id: new objectId(project._id)},
+            {_id: new objectId(id)},
             { $set: {
                 nombre: project.nombre,
                 progreso: project.progreso,
+                equipo: project.equipo,
+                tickets: project.tickets,
                 completado: project.completado,
                 manager: project.manager
                 }
@@ -41,7 +122,8 @@ async function updateProjectData(project){
     return result;
 }
 
-async function updateProjectName(name, id){
+
+async function addProjectManager(id, manager){
     const connectiondb = await connection.getConnection();
     const result = await connectiondb
         .db('tp2_final')
@@ -49,40 +131,10 @@ async function updateProjectName(name, id){
         .updateOne(
             {_id: new objectId(id)},
             { $set: {
-                nombre: name
+                manager: {
+                    _id: new objectId(manager._id),
+                    nombre: manager.nombre
                 }
-            }
-        )
-
-    return result;
-}
-
-async function updateProjectProgress(project, id){
-    const connectiondb = await connection.getConnection();
-    const result = await connectiondb
-        .db('tp2_final')
-        .collection('proyectos')
-        .updateOne(
-            {_id: new objectId(id)},
-            { $set: {
-                progreso: project.progreso,
-                completado: project.completado,
-                }
-            }
-        )
-
-    return result;
-}
-
-async function updateProjectManager(manager, id){
-    const connectiondb = await connection.getConnection();
-    const result = await connectiondb
-        .db('tp2_final')
-        .collection('proyectos')
-        .updateOne(
-            {_id: new objectId(id)},
-            { $set: {
-                manager: manager
                 }
             }
         )
@@ -122,12 +174,12 @@ async function getTicket(id){
 
 
 
-async function getTeam(name){
+async function getTeam(id){
     const connectiondb = await connection.getConnection();
     const team = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
-        .find( { 'equipo.nombre' : name}).project({ 'equipo.nombre': 1, "equipo.desarrolladores": 1})
+        .find( { '_id' : new objectId(id)}).project({ 'equipo.nombre': 1, "equipo.desarrolladores": 1})
         .toArray()
     
     return team;
@@ -177,23 +229,7 @@ async function getAllTeams(){
         return teams;
 }
 
-async function updateTeamName(team, id){
-    const connectiondb = await connection.getConnection();
-    const result = await connectiondb
-        .db('tp2_final')
-        .collection('proyectos')       
-        .updateOne(
-            {_id: new objectId(id)},
-            { $set: {
-                "equipo.nombre" : team.nombre,
-                //"equipo.desarrolladores" : team.desarrolladores
-                }
-            }
-        )
-    return result;
-}
-
-async function addTeamMember(member, id){
+async function addTeamMember(id, member){
     const connectiondb = await connection.getConnection();
     const result = await connectiondb
         .db('tp2_final')
@@ -201,23 +237,6 @@ async function addTeamMember(member, id){
         .updateOne(
             { _id: new objectId(id) },
             { $push: { 
-                "equipo.desarrolladores": {
-                    "_id": new objectId(), 
-                    "nombre" : member.nombre
-                }
-            }}                  
-        )
-    return result;
-}
-
-async function removeTeamMember(member, id){
-    const connectiondb = await connection.getConnection();
-    const result = await connectiondb
-        .db('tp2_final')
-        .collection('proyectos')
-        .updateOne(
-            { _id: new objectId(id) },
-            { $pull: { 
                 "equipo.desarrolladores": {
                     "_id": new objectId(member._id), 
                     "nombre" : member.nombre
@@ -227,7 +246,24 @@ async function removeTeamMember(member, id){
     return result;
 }
 
-async function addTicketToProject(ticket, id){
+async function removeTeamMember(projectId, memberId){
+    const connectiondb = await connection.getConnection();
+    const result = await connectiondb
+        .db('tp2_final')
+        .collection('proyectos')
+        .updateOne(
+            { _id: new objectId(projectId) },
+            { $pull: { 
+                "equipo.desarrolladores": {
+                    "_id": new objectId(memberId),
+                }
+            }}                  
+        )
+    return result;
+}
+
+async function addTicketToProject(id, ticket){
+    console.log()
     const connectiondb = await connection.getConnection();
     const result = await connectiondb
         .db('tp2_final')
@@ -235,19 +271,19 @@ async function addTicketToProject(ticket, id){
         .updateOne(
             { _id: new objectId(id) },
             { $push: { tickets: {
-                "_id": new objectId(ticket._id), 
-                "nombre" : ticket.nombre,
+                "_id": new objectId(), 
+                "nombre": ticket.nombre,
                 "descripcion": ticket.descripcion,
                 "completado": ticket.completado,
                 "dificultad": ticket.dificultad,
                 "prioridad": ticket.prioridad,
-                "desarrollador_id": ticket.desarrollador_id
+                "desarrollador_id": ticket.desarrollador_id !== "" ? new objectId(ticket.desarrollador_id) : ticket.desarrollador_id
             }}}                  
         )
     return result;
 }
 
-async function removeTicketFromProject(ticket, id){
+async function removeTicketFromProject(id, ticketId){
     const connectiondb = await connection.getConnection();
     const result = await connectiondb
         .db('tp2_final')
@@ -255,26 +291,21 @@ async function removeTicketFromProject(ticket, id){
         .updateOne(
             { _id: new objectId(id) },
             { $pull: { tickets: {
-                "_id": new objectId(ticket._id),
-                "nombre" : ticket.nombre,
-                "descripcion": ticket.descripcion,
-                "completado": ticket.completado,
-                "dificultad": ticket.dificultad,
-                "prioridad": ticket.prioridad,
-                "desarrollador_id": ticket.desarrollador_id 
+                "_id": new objectId(ticketId),
             }}}
         )
         
     return result;
 }
 
-async function updateTicket(ticket, id){
+async function updateTicket(id, ticketId, ticket){
     const connectiondb = await connection.getConnection();
     const result = await connectiondb
         .db('tp2_final')
         .collection('proyectos')
         .updateOne(
-          {"tickets._id": new objectId(id)},
+          { "_id": new objectId(id),
+            "tickets._id": new objectId(ticketId)},
             { $set: {
                 "tickets.$.nombre": ticket.nombre,
                 "tickets.$.descripcion": ticket.descripcion,
@@ -282,7 +313,7 @@ async function updateTicket(ticket, id){
                 "tickets.$.dificultad": ticket.dificultad,
                 "tickets.$.prioridad": ticket.prioridad,
                 "tickets.$.nombre": ticket.nombre,
-                "tickets.$.desarrollador_id": ticket.desarrollador_id
+                "tickets.$.desarrollador_id": ticket.desarrollador_id !== "" ? new objectId(ticket.desarrollador_id) : ticket.desarrollador_id
                 }
             }                   
         )
@@ -301,5 +332,5 @@ async function deleteProject(id){
 
 
 module.exports = {
-    getProjects, newProject, updateProjectData, updateProjectName, updateProjectProgress, updateProjectManager, getTickets, getTicket, addTicketToProject, removeTicketFromProject,
-    getTeam, addTeamMember, removeTeamMember, removeFromAllTeams, getProject, getAllTeams, updateTeamName, updateTicket, deleteProject }
+    getProjects, newProject, findProjects, updateProject, addProjectManager, getTickets, getTicket, addTicketToProject, removeTicketFromProject,
+    findTickets, getTeam, addTeamMember, removeTeamMember, removeFromAllTeams, getProject, getAllTeams, updateTicket, deleteProject }

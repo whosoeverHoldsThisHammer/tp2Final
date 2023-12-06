@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const controller = require('./../controllers/projects');
 
-// getall projects
+// get all projects
 router.get('/', async(req, res, next) => {
   const projects = await controller.getProjects();
   res.json(projects);
@@ -15,31 +15,26 @@ router.post('/', async(req, res) =>{
   res.json(result)
 })
 
-// update project data
-router.put('/updateProject/', async(req, res) => {
-  const project = req.body;
-  const result = await controller.updateProjectData(project)
-  res.json(result)
-})
+// find project
+router.get('/find/bymanager/:id', async(req, res) => {
+  const page = req.query.page ? parseInt(req.query.page): 0;
+  const size = req.query.size ? parseInt(req.query.size): 0;
 
-// update project name
-router.put('/updateProjectName/:id', async(req, res) => {
-  const name = req.body.nombre;
-  const result = await controller.updateProjectName(name, req.params.id)
-  res.json(result)
-})
+  const projects = await controller.findProjects(req.params.id, req.query.completed, page, size);
+  res.json(projects);
+});
 
-// update project progress
-router.put('/updateProjectProgress/:id', async(req, res) => {
+// update project
+router.put('/:id', async(req, res) => {
   const project = req.body;
-  const result = await controller.updateProjectProgress(project, req.params.id)
+  const result = await controller.updateProject(req.params.id, project)
   res.json(result)
 })
 
 // update project manager
-router.put('/updateProjectManager/:id', async(req, res) => {
+router.put('/:id/manager', async(req, res) => {
   const manager = req.body;
-  const result = await controller.updateProjectManager(manager, req.params.id)
+  const result = await controller.addProjectManager(req.params.id, manager)
   res.json(result)
 })
 
@@ -49,16 +44,22 @@ router.get('/tickets', async(req, res, next) => {
   res.json(tickets);
 });
 
+// find tickets
+router.get('/tickets/find/bydeveloper/:id', async(req, res) => {
+  const projects = await controller.findTickets(req.params.id);
+  res.json(projects);
+});
 
-// get team by name
-router.get('/team/:name', async(req, res, next) => {
-  const name = req.params.name.replace('_', ' ');
-  const team = await controller.getTeam(name);
+
+// get team
+router.get('/:id/members', async(req, res, next) => {
+  //const name = req.params.name.replace('_', ' ');
+  const team = await controller.getTeam(req.params.id);
   res.json(team);
 });
 
 // remove dev from teams
-router.put('/removeFromAllTeams/:id', async(req, res) => {
+router.delete('/teams/:id/all', async(req, res) => {
   const id = req.params.id;
   const result = await controller.removeFromAllTeams(id);
   res.json(result);
@@ -79,44 +80,37 @@ router.get('/:id', async(req, res) => {
 });
 
 // update ticket
-router.put('/updateTicket/:id', async(req, res) => {
+router.put('/:id/tickets/:ticketId', async(req, res) => {
   const ticket = req.body;
-  const result = await controller.updateTicket(ticket, req.params.id)
+  const result = await controller.updateTicket(req.params.id, req.params.ticketId, ticket)
   res.json(result)
 })
 
 // add ticket to project
-router.put('/addTicketToProject/:id', async(req, res) => {
+router.post('/:id/tickets', async(req, res) => {
   const ticket = req.body;
-  const result = await controller.addTicketToProject(ticket, req.params.id)
+  const result = await controller.addTicketToProject(req.params.id, ticket)
   res.json(result)
 })
 
 // remove ticket from project
-router.put('/removeTicketFromProject/:id', async(req, res) => {
-  const ticket = req.body;
-  const result = await controller.removeTicketFromProject(ticket, req.params.id)
+router.delete('/:id/tickets/:ticket', async(req, res) => {
+  const result = await controller.removeTicketFromProject(req.params.id, req.params.ticket)
   res.json(result)
 })
 
-// update team name
-router.put('/updateTeamName/:id', async(req, res) => {
-  const team = req.body;
-  const result = await controller.updateTeamName(team, req.params.id)
-  res.json(result)
-})
 
 // add team member
-router.put('/addTeamMember/:id', async(req, res) => {
+router.post('/:id/members', async(req, res) => {
   const member = req.body;
-  const result = await controller.addTeamMember(member, req.params.id)
+  const result = await controller.addTeamMember(req.params.id, member)
   res.json(result)
 })
 
 // remove team member
-router.put('/removeTeamMember/:id', async(req, res) => {
-  const member = req.body;
-  const result = await controller.removeTeamMember(member, req.params.id)
+router.delete('/:id/members/:memberId', async(req, res) => {
+  //const member = req.body;
+  const result = await controller.removeTeamMember(req.params.id, req.params.memberId)
   res.json(result)
 })
 
@@ -127,7 +121,7 @@ router.delete('/:id', async(req, res) => {
 })
 
 //get ticket by id
-router.get('/ticket/:id', async(req, res, next) => {
+router.get('/tickets/:id', async(req, res, next) => {
   const id = req.params.id;
   const ticket = await controller.getTicket(id);
   res.json(ticket);
