@@ -8,20 +8,12 @@ async function newProject(project) {
     return projects.newProject(project);
 }
 
-async function updateProjectData(project) {
-    return projects.updateProjectData(project);
+async function updateProject(id, project) {
+    return projects.updateProject(id, project);
 }
 
-async function updateProjectName(name, id) {
-    return projects.updateProjectName(name, id);
-}
-
-async function updateProjectProgress(project, id) {
-    return projects.updateProjectProgress(project, id);
-}
-
-async function updateProjectManager(manager, id) {
-    return projects.updateProjectManager(manager, id);
+async function addProjectManager(id, manager) {
+    return projects.addProjectManager(id, manager);
 }
 
 async function getTickets() {
@@ -34,8 +26,8 @@ async function getTicket(id) {
 }
 
 
-async function getTeam(name){
-    return projects.getTeam(name);
+async function getTeam(id){
+    return projects.getTeam(id);
 }
 
 
@@ -52,33 +44,37 @@ async function getAllTeams() {
         return projects.getAllTeams();
 }
 
-async function updateTeamName(team, id) {
-    return projects.updateTeamName(team, id);
+async function addTeamMember(id, member) {
+    return projects.addTeamMember(id, member);
 }
 
-async function addTeamMember(team, id) {
-    return projects.addTeamMember(team, id);
+async function removeTeamMember(id, memberId) {
+    return projects.removeTeamMember(id, memberId);
 }
 
-async function removeTeamMember(team, id) {
-    return projects.removeTeamMember(team, id);
+async function addTicketToProject(id, ticket) {
+    return projects.addTicketToProject(id, ticket);
 }
 
-async function addTicketToProject(ticket, id) {
-    return projects.addTicketToProject(ticket, id);
+async function removeTicketFromProject(id, ticketId) {
+    return projects.removeTicketFromProject(id, ticketId);
 }
 
-async function removeTicketFromProject(ticket, id) {
-    return projects.removeTicketFromProject(ticket, id);
+async function updateTicket(id, ticketId, ticket) {
+    return projects.updateTicket(id, ticketId, ticket);
 }
 
-async function updateTicket(ticket, id) {
-    return projects.updateTicket(ticket, id);
+async function findProjects(manager, completed, page, size) {
+    return projects.findProjects(manager, completed, page, size);
+}
+
+async function findTickets(dev) {
+    return projects.findTickets(dev);
 }
 
 async function deleteProject(id) {
     return projects.deleteProject(id);
 }
 
-module.exports = { getProjects, newProject, updateProjectData, updateProjectName, updateProjectProgress, updateProjectManager, getTickets, getTicket, getTeam, removeFromAllTeams,
-     getProject, getAllTeams, updateTeamName, addTeamMember, removeTeamMember, addTicketToProject, removeTicketFromProject, updateTicket, deleteProject }
+module.exports = { getProjects, newProject, updateProject, addProjectManager, getTickets, getTicket, findTickets, getTeam, removeFromAllTeams,
+     getProject, findProjects, getAllTeams, addTeamMember, removeTeamMember, addTicketToProject, removeTicketFromProject, updateTicket, deleteProject }

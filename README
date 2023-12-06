@@ -16,24 +16,25 @@ SISTEMA DE ADMINISTRACION DE PROYECTOS:
 
 # PROJECTS
 
-- GET api/projects/tickets
-- GET api/projects/ticket/:id
-- PUT api/projects/updateTicket/:id
-- GET api/projects/team/:nombre
-- GET api/projects/teams
-- GET api/projects/:id
 - GET api/projects/
 - POST api/projects/
-- PUT api/projects/updateProject
-- PUT api/projects/updateProjectName/:id
-- PUT api/projects/updateProjectProgress/:id
-- PUT api/projects/updateProjectManager/:id
-- PUT api/projects/addTicketToProject/:id
-- PUT api/projects/removeTicketToProject/:id
-- PUT api/projects/updateTeam/:id
-- PUT api/projects/addTeamMember/:id
-- PUT api/projects/removeTeamMember/:id
+- GET api/projects/:id
+- PUT api/projects/:id
+- PUT api/projects/:id/manager
+- GET api/projects/find/bymanager/:id?completed=[boolean]&page=[int]&size=[int]
 - DELETE api/projects/:id
+- GET api/projects/tickets
+- GET api/projects/tickets/:id
+- PUT api/projects/:id/tickets/:ticket
+- POST api/projects/:id/tickets
+- DELETE api/projects/:id/tickets/:ticket
+- GET api/projects/tickets/find/bydeveloper/:id
+- GET api/projects/:id/members
+- GET api/projects/teams
+- POST api/projects/:id/members
+- DELETE api/projects/:id/members/:member
+- DELETE api/projects/teams/:id/all
+
 
 # USERS
 
