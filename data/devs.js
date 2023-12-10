@@ -32,16 +32,15 @@ async function newDev(dev) {
   return result;
 }
 
-async function updateDev(dev){
+async function updateDev(id, dev){
     const connectiondb = await connection.getConnection();
     const result = await connectiondb
         .db('tp2_final')
         .collection('desarrolladores')
         .updateOne(
-            {_id: new objectId(dev._id)},
+            {_id: new objectId(id)},
             { $set: {
-                nombre: dev.nombre,
-                proyecto_id: dev.proyecto_id
+                nombre: dev.nombre
                 }
             }
         )

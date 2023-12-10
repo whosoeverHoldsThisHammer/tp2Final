@@ -19,9 +19,9 @@ router.post("/", async (req, res) => {
   res.json(result);
 });
 
-router.put("/", async (req, res) => {
+router.put("/:id", async (req, res) => {
   const dev = req.body;
-  const result = await controller.updateDev(dev);
+  const result = await controller.updateDev(req.params.id, dev);
   res.json(result);
 });
 

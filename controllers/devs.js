@@ -12,8 +12,8 @@ async function newDev(dev) {
     return devs.newDev(dev);
 }
   
-async function updateDev(dev) {
-    return devs.updateDev(dev);
+async function updateDev(id, dev) {
+    return devs.updateDev(id, dev);
 }
   
 async function deleteDev(id) {
